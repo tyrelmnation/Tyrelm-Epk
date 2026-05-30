@@ -72,7 +72,21 @@ a:hover{color:#d4b85a}
 .detail-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #111;font-size:.84rem}
 .detail-row .lbl{color:#666}
 .detail-row .val{color:#ccc;text-align:right}
-@media(max-width:800px){.epk-grid{flex-direction:column;gap:28px}.epk-sidebar{min-width:0}.epk-header{flex-direction:column;align-items:flex-start;gap:12px}.header-right{margin-left:0}.bio-wrap .bio-img{width:120px;height:120px}}
+ .epk-nav{display:flex;gap:2px;margin-bottom:28px;border-bottom:1px solid #1a1a1a;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-tab{padding:10px 22px;font-size:.82rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;font-family:'Segoe UI',Arial,sans-serif;background:none;border:none;border-bottom:2px solid transparent;color:#555;cursor:pointer;transition:all .15s;white-space:nowrap;margin-bottom:-1px}
+.nav-tab:hover{color:#888}
+.nav-tab.active{color:#c9a84c;border-bottom-color:#c9a84c}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.video-grid iframe{width:100%;aspect-ratio:16/9;border:none;border-radius:2px}
+.video-grid .vid-place{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:2px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:#555;font-size:.82rem;text-align:center;padding:16px}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.photo-grid img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:2px;border:1px solid #1a1a1a;transition:opacity .2s}
+.photo-grid img:hover{opacity:.9}
+.contact-info{font-size:.92rem;color:#ccc}
+.contact-info a{display:inline-block;margin-top:8px}
+ @media(max-width:800px){.epk-grid{flex-direction:column;gap:28px}.epk-sidebar{min-width:0}.epk-header{flex-direction:column;align-items:flex-start;gap:12px}.header-right{margin-left:0}.bio-wrap .bio-img{width:120px;height:120px}}
 @media(max-width:500px){.page{padding:0 16px}.bio-wrap .bio-img{width:100%;height:auto;aspect-ratio:1}.header-photo{width:48px;height:48px}.header-left .logo{font-size:1.3rem}}
 </style>
 </head>
@@ -88,8 +102,17 @@ a:hover{color:#d4b85a}
 <a class="listen-btn" href="https://www.youtube.com/@tyrelm" target="_blank">→ Listen</a>
 </div>
 </header>
+<nav class="epk-nav" id="epkNav">
+<button class="nav-tab active" data-tab="bio">Bio</button>
+<button class="nav-tab" data-tab="music">Music</button>
+<button class="nav-tab" data-tab="videos">Videos</button>
+<button class="nav-tab" data-tab="photos">Photos</button>
+<button class="nav-tab" data-tab="downloads">Downloads</button>
+<button class="nav-tab" data-tab="contact">Connect</button>
+</nav>
 <div class="epk-grid">
 <div class="epk-main">
+<div id="bio" class="tab-content active">
 <section>
 <div class="bio-wrap">
 <img class="bio-img" id="imgBio" src="" alt="Tyrelm">
@@ -100,6 +123,8 @@ a:hover{color:#d4b85a}
 </div>
 </div>
 </section>
+</div>
+<div id="music" class="tab-content">
 <div class="divider"></div>
 <section>
 <h2 class="section-title">Music</h2>
@@ -131,21 +156,61 @@ a:hover{color:#d4b85a}
 <div style="margin-top:14px;text-align:center;"><a class="listen-btn" href="https://www.youtube.com/@tyrelm" target="_blank">→ Listen on YouTube</a></div>
 </section>
 </div>
-<aside class="epk-sidebar">
-<div class="sidebar-section" style="margin-bottom:16px">
-<img class="sidebar-photo" id="imgPress" src="" alt="Tyrelm press photo">
+<div id="videos" class="tab-content">
+<section>
+<h2 class="section-title">Videos</h2>
+<div class="video-grid">
+<iframe src="https://www.youtube.com/embed/aAjFKC2pdzw" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/FEcv-Ropq7g" allowfullscreen></iframe>
 </div>
-<div class="sidebar-section">
-<h3>Details</h3>
-<div class="detail-row"><span class="lbl">Genres</span><span class="val">R&B, Soul, Blues</span></div>
-<div class="detail-row"><span class="lbl">Rights</span><span class="val">100% Master &amp; Publishing</span></div>
+</section>
+</div>
+<div id="photos" class="tab-content">
+<section>
+<h2 class="section-title">Press Photos</h2>
+<div class="photo-grid">
+<img src="https://raw.githubusercontent.com/tyrelmnation/Tyrelm-Epk/main/press.jpg" alt="Tyrelm press photo 1" onerror="this.style.display='none'">
+<img src="https://raw.githubusercontent.com/tyrelmnation/Tyrelm-Epk/main/header.webp" alt="Tyrelm photo 2" onerror="this.style.display='none'">
+<img src="https://raw.githubusercontent.com/tyrelmnation/Tyrelm-Epk/main/bio.webp" alt="Tyrelm photo 3" onerror="this.style.display='none'">
+</div>
+<p style="margin-top:12px;font-size:.82rem;color:#888;">More photos coming soon. Hi-res available on request — <a href="mailto:tyrellmatekwa@gmail.com">email us</a>.</p>
+</section>
+</div>
+<div id="contact" class="tab-content">
+<section>
+<h2 class="section-title">Connect</h2>
+<div class="contact-info">
+<p>Email: <a href="mailto:tyrellmatekwa@gmail.com">tyrellmatekwa@gmail.com</a></p>
+<p>Location: Nairobi, Kenya</p>
+<p>Artist: Tyrelm (Edwin Matekwa)</p>
+<p style="margin-top:16px;">Follow Tyrelm for new releases, videos, and live shows.</p>
+<div class="sidebar-links" style="margin-top:12px">
+<a href="https://www.youtube.com/@tyrelm" target="_blank">YouTube</a>
+<a href="https://instagram.com/ty_relm" target="_blank">Instagram</a>
+<a href="https://www.twine.net/TyrellMatekwa" target="_blank">Twine</a>
+</div>
+</div>
+</section>
+</div>
+<div id="downloads" class="tab-content">
+<section>
+<h2 class="section-title">Downloads</h2>
+<p style="font-size:.88rem;color:#aaa;margin-bottom:16px;">All tracks available as 24-bit/48kHz WAV files. Mastered, mixed, and 100% owned (master &amp; publishing).</p>
+<div class="download-group" id="dlTabDownloads"></div>
+</section>
+</div>
+<aside class="epk-sidebar">
+<div class="sidebar-section" id="detailsSection" style="display:none">
+<h3>Now Playing</h3>
 <div class="detail-row" id="dlTrack"><span class="lbl">Track</span><span class="val" id="dvTrack">—</span></div>
 <div class="detail-row" id="dlAlbum"><span class="lbl">Album</span><span class="val" id="dvAlbum">—</span></div>
 <div class="detail-row" id="dlDur"><span class="lbl">Duration</span><span class="val" id="dvDur">—</span></div>
-<div class="detail-row"><span class="lbl">Location</span><span class="val">Nairobi, Kenya</span></div>
-<div class="detail-row"><span class="lbl">Language</span><span class="val">English / Swahili</span></div>
-<div class="detail-row"><span class="lbl">PRO</span><span class="val">Registered (Kenya)</span></div>
+<div class="detail-row"><span class="lbl">Writer</span><span class="val">Edwin Matekwa</span></div>
+<div class="detail-row"><span class="lbl">Producer</span><span class="val">Tyrelm</span></div>
 <div class="detail-row"><span class="lbl">MLC</span><span class="val">Edwin Matekwa</span></div>
+<div class="detail-row"><span class="lbl">Rights</span><span class="val">100% Master &amp; Publishing</span></div>
+<div class="detail-row" id="dlIsrc"><span class="lbl">ISRC</span><span class="val" id="dvIsrc">—</span></div>
+<div class="detail-row"><span class="lbl">Language</span><span class="val">English / Swahili</span></div>
 </div>
 <div class="sidebar-section">
 <h3>Connect</h3>
@@ -156,11 +221,7 @@ a:hover{color:#d4b85a}
 <a href="mailto:tyrellmatekwa@gmail.com">Email</a>
 </div>
 </div>
-<div class="sidebar-section">
-<h3>Downloads</h3>
-<div class="download-group" id="dlSidebar"></div>
-<div style="font-size:.72rem;color:#555;margin-top:8px;line-height:1.5;">24-bit/48kHz WAV files ready for download. All tracks 100% owned (master &amp; publishing).</div>
-</div>
+
 </aside>
 </div>
 <footer style="padding:20px 0 28px;border-top:1px solid #1a1a1a;margin-top:28px;font-size:.76rem;color:#555;text-align:center;">© 2026 Tyrelm. All rights reserved.</footer>
@@ -189,20 +250,21 @@ Object.keys(cmap).forEach(function(id){
 var W = C + "wav/";
 function wu(f){return W + encodeURIComponent(f)}
 var tracks = [
-  {title:"Time And Space",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"time-and-space-master.m4a",wav:"TIME AND SPACE MASTER.wav",dur:"2:58"},
-  {title:"Lightning",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lightning-master.m4a",wav:"LIGHTNING MASTER.wav",dur:"3:12"},
-  {title:"Better Person",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"better-person.m4a",wav:"BETTERPERSONTyrell.wavMASTER.wav",dur:"3:45"},
-  {title:"Real",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"real-master.m4a",wav:"REAL MASTER.wav",dur:"2:34"},
-  {title:"See Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"see-me.m4a",wav:"SEE ME.wav",dur:"3:22"},
-  {title:"Be With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"be-with-me-master.m4a",wav:"Be with me Master.wav",dur:"3:05"},
-  {title:"Lifeline",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lifeline.m4a",wav:"LIFELINE.wav",dur:"2:48"},
-  {title:"Fade Away",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"fade-away.m4a",wav:"FADE AWAY TYRELM.wav",dur:"3:30"},
-  {title:"No Love",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"no-love-master.m4a",wav:"NO LOVE MASTER.wav",dur:"2:18"},
-  {title:"Him Song",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"him-song.m4a",wav:"HIM SONG TYRELM.wav",dur:"3:40"},
-  {title:"With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"with-me-outro.m4a",wav:"WITH ME OUTRO.wav",dur:"1:15"},
-  {title:"Ghost",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"ghost-master.m4a",wav:"GHOST MASTER.wav",dur:"3:28"},
-  {title:"Reasons",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"reasons-master.m4a",wav:"REASONS master.wav",dur:"2:55"},
-  {title:"We",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"we.m4a",wav:"WE.wav",dur:"3:15"}
+  {title:"Time",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"time-master.m4a",wav:"TIME TYRELM.wav",dur:"1:23",isrc:"QT6G42525153"},
+  {title:"Time And Space",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"time-and-space-master.m4a",wav:"TIME AND SPACE MASTER.wav",dur:"2:34",isrc:"QT6G42525154"},
+  {title:"Lightning",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lightning-master.m4a",wav:"LIGHTNING MASTER.wav",dur:"3:15",isrc:"QT6G42525155"},
+  {title:"Better Person",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"better-person.m4a",wav:"BETTERPERSONTyrell.wavMASTER.wav",dur:"2:26",isrc:"QT6G42525156"},
+  {title:"Real",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"real-master.m4a",wav:"REAL MASTER.wav",dur:"1:55",isrc:"QT6G42525157"},
+  {title:"See Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"see-me.m4a",wav:"SEE ME.wav",dur:"3:04",isrc:"QT6G42525158"},
+  {title:"Be With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"be-with-me-master.m4a",wav:"Be with me Master.wav",dur:"2:28",isrc:"QT6G42525159"},
+  {title:"Lifeline",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lifeline.m4a",wav:"LIFELINE.wav",dur:"2:35",isrc:"QT6G42525160"},
+  {title:"Fade Away",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"fade-away.m4a",wav:"FADE AWAY TYRELM.wav",dur:"2:39",isrc:"QT6G42525161"},
+  {title:"No Love",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"no-love-master.m4a",wav:"NO LOVE MASTER.wav",dur:"1:14",isrc:"QT6G42525162"},
+  {title:"Him Song",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"him-song.m4a",wav:"HIM SONG TYRELM.wav",dur:"2:29",isrc:"QT6G42525163"},
+  {title:"With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"with-me-outro.m4a",wav:"WITH ME OUTRO.wav",dur:"1:25",isrc:"QT6G42525164"},
+  {title:"Reasons",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"reasons-master.m4a",wav:"REASONS master.wav",dur:"3:37",isrc:"QZMEN2636057"},
+  {title:"We",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"we.m4a",wav:"WE.wav",dur:"2:20",isrc:"QZMEN2636058"},
+  {title:"Ghost",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"ghost-master.m4a",wav:"GHOST MASTER.wav",dur:"2:05",isrc:"QZMEN2636059"}
 ];
 
 var audio=new Audio(),current=0,playing=false;
@@ -218,6 +280,8 @@ function loadTrack(i){
   document.getElementById('dvTrack').textContent=t.title;
   document.getElementById('dvAlbum').textContent=t.album.replace(' · 2025','').replace(' · 2026','');
   document.getElementById('dvDur').textContent=t.dur;
+  document.getElementById('dvIsrc').textContent=t.isrc||'—';
+  document.getElementById('detailsSection').style.display='none';
   nowCover.src=t.cover;nowCover.onerror=function(){
   var svg='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52"%3E%3Crect width="52" height="52" fill="%231a1a1a"/%3E%3Ctext x="26" y="30" text-anchor="middle" fill="%23555" font-size="10"%3EAlbum%3C/text%3E%3C/svg%3E';
   this.src=svg;this.onerror=null
@@ -228,8 +292,8 @@ function loadTrack(i){
 }
 function togglePlay(){
   if(!audio.src)return;
-if(audio.paused){audio.play();playing=true;playBtn.innerHTML='&#10074;&#10074;'}
-  else{audio.pause();playing=false;playBtn.innerHTML='&#9654;'}
+if(audio.paused){audio.play();playing=true;playBtn.innerHTML='&#10074;&#10074;';document.getElementById('detailsSection').style.display=''}
+  else{audio.pause();playing=false;playBtn.innerHTML='&#9654;';document.getElementById('detailsSection').style.display='none'}
 }
 function playNext(){
   var idx=tracks.findIndex(function(t,i){return t.album===activeAlbum&&i>current});
@@ -245,7 +309,7 @@ audio.addEventListener('timeupdate',function(){
 });
 audio.addEventListener('ended',function(){
   var idx=tracks.findIndex(function(t,i){return t.album===activeAlbum&&i>current});
-  if(idx>=0)loadTrack(idx);else{playing=false;playBtn.innerHTML='&#9654;';progressBar.style.width='0%';timeDisplay.textContent='--:-- / --:--'}
+  if(idx>=0)loadTrack(idx);else{playing=false;playBtn.innerHTML='&#9654;';progressBar.style.width='0%';timeDisplay.textContent='--:-- / --:--';document.getElementById('detailsSection').style.display='none'}
 });
 progressWrap.addEventListener('click',function(e){
   if(audio.duration){var r=progressWrap.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration}
@@ -276,21 +340,34 @@ function renderTracks(){
     if(t.album!==activeAlbum)return;
     var li=document.createElement('li');
     li.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+t.title+'</span><span class="dur">'+t.dur+'</span><a class="dl" href="'+wu(t.wav)+'" download data-track="'+i+'" onclick="event.stopPropagation()">&#8628;</a>';
-    li.addEventListener('click',function(){if(current!==i){loadTrack(i);if(playing)audio.play().catch(function(){})}else togglePlay()});
+    li.addEventListener('click',function(){if(current!==i){loadTrack(i);if(playing){audio.play().catch(function(){});document.getElementById('detailsSection').style.display=''}}else togglePlay()});
     trackListEl.appendChild(li)
   });
   document.querySelectorAll('.track-list li').forEach(function(li,j){li.classList.toggle('active',j===current)})
 }
 renderTracks();
 var albums={};tracks.forEach(function(t){if(!albums[t.album])albums[t.album]=[];albums[t.album].push(t)});
-var dlEl=document.getElementById('dlSidebar');
-Object.keys(albums).forEach(function(a){
-  var d=document.createElement('div');d.className='dl-album';
-  d.innerHTML='<div class="dl-ttl">'+a+'</div>';
-  albums[a].forEach(function(t){d.innerHTML+='<a href="'+wu(t.wav)+'" download title="WAV">'+t.title+' <span style="color:#555">WAV</span></a>'});
-  dlEl.appendChild(d)
-});
+function populateDownloads(elId){
+  var el=document.getElementById(elId);if(!el)return;
+  Object.keys(albums).forEach(function(a){
+    var d=document.createElement('div');d.className='dl-album';
+    d.innerHTML='<div class="dl-ttl">'+a+'</div>';
+    albums[a].forEach(function(t){d.innerHTML+='<a href="'+wu(t.wav)+'" download title="WAV">'+t.title+' <span style="color:#555">WAV</span></a>'});
+    el.appendChild(d)
+  })
+}
+populateDownloads('dlTabDownloads');
 loadTrack(0);
+// tab switching
+document.querySelectorAll('.nav-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
+    tab.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active')});
+    var el=document.getElementById(tab.dataset.tab);
+    if(el)el.classList.add('active')
+  })
+});
 </script>
 </body>
 </html>
