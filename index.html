@@ -53,12 +53,18 @@ a:hover{color:#d4b85a}
 .track-list li .num{color:#555;font-size:.72rem;width:20px;text-align:right;flex-shrink:0}
 .track-list li .ttl{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .track-list li .dur{color:#555;font-size:.72rem;flex-shrink:0;margin-left:8px}
+.track-list li .dl{color:#444;font-size:.7rem;cursor:pointer;padding:2px 6px;flex-shrink:0;text-decoration:none;transition:color .15s}
+.track-list li .dl:hover{color:#c9a84c}
 .sidebar-photo{width:100%;border-radius:2px;border:1px solid #1a1a1a;display:block;margin-bottom:16px}
 .sidebar-section{margin-bottom:28px}
 .sidebar-section h3{font-family:'Segoe UI','Bebas Neue',Arial,sans-serif;font-size:1.15rem;font-weight:600;letter-spacing:1.5px;color:#c9a84c;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid #1a1a1a}
 .sidebar-links{display:flex;flex-direction:column;gap:4px}
 .sidebar-links a{padding:6px 0;font-size:.86rem;color:#aaa;border-bottom:1px solid #111}
 .sidebar-links a:hover{color:#c9a84c}
+.download-group .dl-album{margin-bottom:12px}
+.download-group .dl-album .dl-ttl{font-size:.8rem;color:#888;margin-bottom:4px;font-weight:500}
+.download-group .dl-album a{display:block;font-size:.77rem;padding:2px 0;color:#555;text-decoration:none}
+.download-group .dl-album a:hover{color:#c9a84c}
 .detail-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #111;font-size:.84rem}
 .detail-row .lbl{color:#666}
 .detail-row .val{color:#ccc;text-align:right}
@@ -145,6 +151,11 @@ a:hover{color:#d4b85a}
 <a href="mailto:tyrellmatekwa@gmail.com">Email</a>
 </div>
 </div>
+<div class="sidebar-section">
+<h3>Downloads</h3>
+<div class="download-group" id="dlSidebar"></div>
+<div style="font-size:.72rem;color:#555;margin-top:8px;line-height:1.5;">High-quality WAV files (24-bit/48kHz) available for licensing. <a href="mailto:tyrellmatekwa@gmail.com">Email request</a>.</div>
+</div>
 </aside>
 </div>
 <footer style="padding:20px 0 28px;border-top:1px solid #1a1a1a;margin-top:28px;font-size:.76rem;color:#555;text-align:center;">© 2026 Tyrelm. All rights reserved.</footer>
@@ -226,9 +237,17 @@ prevBtn.addEventListener('click',playPrev);
 nextBtn.addEventListener('click',playNext);
 tracks.forEach(function(t,i){
   var li=document.createElement('li');
-  li.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+t.title+'</span><span class="dur">'+t.dur+'</span>';
+  li.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+t.title+'</span><span class="dur">'+t.dur+'</span><a class="dl" href="'+t.url+'" download title="Download '+t.title+'" onclick="event.stopPropagation()">&#8628;</a>';
   li.addEventListener('click',function(){if(current!==i){loadTrack(i);if(playing)audio.play().catch(function(){})}else togglePlay()});
   trackListEl.appendChild(li)
+});
+var albums={};tracks.forEach(function(t){if(!albums[t.album])albums[t.album]=[];albums[t.album].push(t)});
+var dlEl=document.getElementById('dlSidebar');
+Object.keys(albums).forEach(function(a){
+  var d=document.createElement('div');d.className='dl-album';
+  d.innerHTML='<div class="dl-ttl">'+a+'</div>';
+  albums[a].forEach(function(t){d.innerHTML+='<a href="'+t.url+'" download>'+t.title+' ('+t.dur+')</a>'});
+  dlEl.appendChild(d)
 });
 loadTrack(0);
 </script>
