@@ -40,9 +40,9 @@ a:hover{color:#d4b85a}
 .player-credits span .l{color:#555}
 .player-credits span .v{color:#888}
 .player-controls{display:flex;align-items:center;gap:8px;padding:8px 14px;background:#080808;border-bottom:1px solid #1a1a1a}
-.player-controls button{background:none;border:none;color:#f2ede4;font-size:1rem;cursor:pointer;padding:4px 8px;border-radius:2px}
+.player-controls button{background:none;border:none;color:#f2ede4;font-size:.85rem;cursor:pointer;padding:6px 12px;border-radius:2px;font-family:'Segoe UI',Arial,sans-serif;line-height:1}
 .player-controls button:hover{background:#1a1a1a}
-.player-controls .play-btn{font-size:1.2rem;color:#c9a84c}
+.player-controls .play-btn{font-size:1.1rem;color:#c9a84c;padding:6px 18px}
 .player-controls .time{font-size:.78rem;color:#666;margin-left:auto}
 .progress-wrap{height:4px;background:#1a1a1a;cursor:pointer}
 .progress-wrap .bar{height:100%;width:0%;background:#c9a84c}
@@ -103,8 +103,9 @@ a:hover{color:#d4b85a}
 </div>
 </div>
 <div class="player-credits">
-<span><span class="l">Writers: </span><span class="v">Tyrelm</span></span>
+<span><span class="l">Writers: </span><span class="v">Edwin Matekwa</span></span>
 <span><span class="l">Producers: </span><span class="v">Tyrelm</span></span>
+<span><span class="l">MLC: </span><span class="v">Edwin Matekwa</span></span>
 <span><span class="l">Rights: </span><span class="v">100% Master &amp; Publishing</span></span>
 <span><span class="l">Duration: </span><span class="v" id="metaDuration">—</span></span>
 </div>
@@ -133,6 +134,7 @@ a:hover{color:#d4b85a}
 <div class="detail-row"><span class="lbl">Location</span><span class="val">Nairobi, Kenya</span></div>
 <div class="detail-row"><span class="lbl">Language</span><span class="val">English / Sheng</span></div>
 <div class="detail-row"><span class="lbl">PRO</span><span class="val">Registered (Kenya)</span></div>
+<div class="detail-row"><span class="lbl">MLC</span><span class="val">Edwin Matekwa</span></div>
 </div>
 <div class="sidebar-section">
 <h3>Connect</h3>
@@ -205,8 +207,8 @@ function loadTrack(i){
 }
 function togglePlay(){
   if(!audio.src)return;
-  if(audio.paused){audio.play();playing=true;playBtn.textContent='⏸'}
-  else{audio.pause();playing=false;playBtn.textContent='▶'}
+if(audio.paused){audio.play();playing=true;playBtn.innerHTML='&#10074;&#10074;'}
+  else{audio.pause();playing=false;playBtn.innerHTML='&#9654;'}
 }
 function playNext(){if(current<tracks.length-1)loadTrack(current+1);if(playing)audio.play().catch(function(){})}
 function playPrev(){if(current>0)loadTrack(current-1);if(playing)audio.play().catch(function(){})}
