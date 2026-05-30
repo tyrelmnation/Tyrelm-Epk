@@ -55,6 +55,10 @@ a:hover{color:#d4b85a}
 .track-list li .dur{color:#555;font-size:.72rem;flex-shrink:0;margin-left:8px}
 .track-list li .dl{color:#444;font-size:.7rem;cursor:pointer;padding:2px 6px;flex-shrink:0;text-decoration:none;transition:color .15s}
 .track-list li .dl:hover{color:#c9a84c}
+.album-tabs{display:flex;gap:2px;margin-bottom:10px}
+.album-tab{padding:7px 18px;font-size:.8rem;font-weight:500;letter-spacing:1px;font-family:'Segoe UI',Arial,sans-serif;background:0 0;border:1px solid #1a1a1a;color:#555;cursor:pointer;border-radius:2px;transition:all .15s;text-transform:uppercase}
+.album-tab:hover{color:#888;border-color:#333}
+.album-tab.active{background:#c9a84c;color:#080808;border-color:#c9a84c}
 .sidebar-photo{width:100%;border-radius:2px;border:1px solid #1a1a1a;display:block;margin-bottom:16px}
 .sidebar-section{margin-bottom:28px}
 .sidebar-section h3{font-family:'Segoe UI','Bebas Neue',Arial,sans-serif;font-size:1.15rem;font-weight:600;letter-spacing:1.5px;color:#c9a84c;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid #1a1a1a}
@@ -100,6 +104,8 @@ a:hover{color:#d4b85a}
 <div class="divider"></div>
 <section>
 <h2 class="section-title">Music</h2>
+<div class="section-title" style="margin-top:8px">Music</div>
+<div class="album-tabs" id="albumTabs"></div>
 <div class="player-wrap" id="player">
 <div class="player-header">
 <img class="cover" id="nowCover" src="" alt="">
@@ -222,13 +228,21 @@ function togglePlay(){
 if(audio.paused){audio.play();playing=true;playBtn.innerHTML='&#10074;&#10074;'}
   else{audio.pause();playing=false;playBtn.innerHTML='&#9654;'}
 }
-function playNext(){if(current<tracks.length-1)loadTrack(current+1);if(playing)audio.play().catch(function(){})}
-function playPrev(){if(current>0)loadTrack(current-1);if(playing)audio.play().catch(function(){})}
+function playNext(){
+  var idx=tracks.findIndex(function(t,i){return t.album===activeAlbum&&i>current});
+  if(idx>=0)loadTrack(idx)
+}
+function playPrev(){
+  var idx=-1;
+  for(var i=current-1;i>=0;i--){if(tracks[i].album===activeAlbum){idx=i;break}}
+  if(idx>=0)loadTrack(idx)
+}
 audio.addEventListener('timeupdate',function(){
   if(audio.duration){progressBar.style.width=(audio.currentTime/audio.duration*100)+'%';timeDisplay.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration)}
 });
 audio.addEventListener('ended',function(){
-  if(current<tracks.length-1)playNext();else{playing=false;playBtn.textContent='▶';progressBar.style.width='0%';timeDisplay.textContent='--:-- / --:--'}
+  var idx=tracks.findIndex(function(t,i){return t.album===activeAlbum&&i>current});
+  if(idx>=0)loadTrack(idx);else{playing=false;playBtn.innerHTML='&#9654;';progressBar.style.width='0%';timeDisplay.textContent='--:-- / --:--'}
 });
 progressWrap.addEventListener('click',function(e){
   if(audio.duration){var r=progressWrap.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration}
@@ -236,12 +250,35 @@ progressWrap.addEventListener('click',function(e){
 playBtn.addEventListener('click',togglePlay);
 prevBtn.addEventListener('click',playPrev);
 nextBtn.addEventListener('click',playNext);
-tracks.forEach(function(t,i){
-  var li=document.createElement('li');
-  li.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+t.title+'</span><span class="dur">'+t.dur+'</span><a class="dl" href="'+wu(t.wav)+'" download title="Download WAV - '+t.title+'" onclick="event.stopPropagation()">&#8628;</a>';
-  li.addEventListener('click',function(){if(current!==i){loadTrack(i);if(playing)audio.play().catch(function(){})}else togglePlay()});
-  trackListEl.appendChild(li)
+var activeAlbum=null,albumNames=[];
+tracks.forEach(function(t){if(albumNames.indexOf(t.album)<0)albumNames.push(t.album)});
+albumNames.forEach(function(a,i){
+  var tab=document.createElement('button');tab.className='album-tab'+(i===0?' active':'');
+  tab.textContent=a.replace(' · 2025','').replace(' · 2026','');
+  tab.dataset.album=a;
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.album-tab').forEach(function(x){x.classList.remove('active')});
+    tab.classList.add('active');
+    activeAlbum=a;
+    renderTracks();
+    var idx=tracks.findIndex(function(t){return t.album===a});
+    if(idx>=0)loadTrack(idx)
+  });
+  document.getElementById('albumTabs').appendChild(tab);
+  if(i===0)activeAlbum=a
 });
+function renderTracks(){
+  trackListEl.innerHTML='';
+  tracks.forEach(function(t,i){
+    if(t.album!==activeAlbum)return;
+    var li=document.createElement('li');
+    li.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+t.title+'</span><span class="dur">'+t.dur+'</span><a class="dl" href="'+wu(t.wav)+'" download data-track="'+i+'" onclick="event.stopPropagation()">&#8628;</a>';
+    li.addEventListener('click',function(){if(current!==i){loadTrack(i);if(playing)audio.play().catch(function(){})}else togglePlay()});
+    trackListEl.appendChild(li)
+  });
+  document.querySelectorAll('.track-list li').forEach(function(li,j){li.classList.toggle('active',j===current)})
+}
+renderTracks();
 var albums={};tracks.forEach(function(t){if(!albums[t.album])albums[t.album]=[];albums[t.album].push(t)});
 var dlEl=document.getElementById('dlSidebar');
 Object.keys(albums).forEach(function(a){
