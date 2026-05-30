@@ -154,7 +154,7 @@ a:hover{color:#d4b85a}
 <div class="sidebar-section">
 <h3>Downloads</h3>
 <div class="download-group" id="dlSidebar"></div>
-<div style="font-size:.72rem;color:#555;margin-top:8px;line-height:1.5;">High-quality WAV files (24-bit/48kHz) available for licensing. <a href="mailto:tyrellmatekwa@gmail.com">Email request</a>.</div>
+<div style="font-size:.72rem;color:#555;margin-top:8px;line-height:1.5;">24-bit/48kHz WAV files ready for download. All tracks 100% owned (master &amp; publishing).</div>
 </div>
 </aside>
 </div>
@@ -181,21 +181,23 @@ Object.keys(cmap).forEach(function(id){
   img.onerror=function(){this.src=b64[id.replace('img','').toLowerCase()];this.onerror=null}
 });
 
+var W = C + "wav/";
+function wu(f){return W + encodeURIComponent(f)}
 var tracks = [
-  {title:"Time And Space",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"time-and-space-master.m4a",dur:"2:58"},
-  {title:"Lightning",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lightning-master.m4a",dur:"3:12"},
-  {title:"Better Person",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"better-person.m4a",dur:"3:45"},
-  {title:"Real",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"real-master.m4a",dur:"2:34"},
-  {title:"See Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"see-me.m4a",dur:"3:22"},
-  {title:"Be With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"be-with-me-master.m4a",dur:"3:05"},
-  {title:"Lifeline",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lifeline.m4a",dur:"2:48"},
-  {title:"Fade Away",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"fade-away.m4a",dur:"3:30"},
-  {title:"No Love",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"no-love-master.m4a",dur:"2:18"},
-  {title:"Him Song",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"him-song.m4a",dur:"3:40"},
-  {title:"With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"with-me-outro.m4a",dur:"1:15"},
-  {title:"Ghost",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"ghost-master.m4a",dur:"3:28"},
-  {title:"Reasons",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"reasons-master.m4a",dur:"2:55"},
-  {title:"We",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"we.m4a",dur:"3:15"}
+  {title:"Time And Space",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"time-and-space-master.m4a",wav:"TIME AND SPACE MASTER.wav",dur:"2:58"},
+  {title:"Lightning",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lightning-master.m4a",wav:"LIGHTNING MASTER.wav",dur:"3:12"},
+  {title:"Better Person",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"better-person.m4a",wav:"BETTERPERSONTyrell.wavMASTER.wav",dur:"3:45"},
+  {title:"Real",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"real-master.m4a",wav:"REAL MASTER.wav",dur:"2:34"},
+  {title:"See Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"see-me.m4a",wav:"SEE ME.wav",dur:"3:22"},
+  {title:"Be With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"be-with-me-master.m4a",wav:"Be with me Master.wav",dur:"3:05"},
+  {title:"Lifeline",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"lifeline.m4a",wav:"LIFELINE.wav",dur:"2:48"},
+  {title:"Fade Away",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"fade-away.m4a",wav:"FADE AWAY TYRELM.wav",dur:"3:30"},
+  {title:"No Love",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"no-love-master.m4a",wav:"NO LOVE MASTER.wav",dur:"2:18"},
+  {title:"Him Song",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"him-song.m4a",wav:"HIM SONG TYRELM.wav",dur:"3:40"},
+  {title:"With Me",album:"Time And Space · 2025",cover:C+"album-cover.jpg",url:C+"with-me-outro.m4a",wav:"WITH ME OUTRO.wav",dur:"1:15"},
+  {title:"Ghost",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"ghost-master.m4a",wav:"GHOST MASTER.wav",dur:"3:28"},
+  {title:"Reasons",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"reasons-master.m4a",wav:"REASONS master.wav",dur:"2:55"},
+  {title:"We",album:"BROKEN DIARY EP · 2026",cover:C+"ep-cover.jpg",url:C+"we.m4a",wav:"WE.wav",dur:"3:15"}
 ];
 
 var audio=new Audio(),current=0,playing=false;
@@ -237,7 +239,7 @@ prevBtn.addEventListener('click',playPrev);
 nextBtn.addEventListener('click',playNext);
 tracks.forEach(function(t,i){
   var li=document.createElement('li');
-  li.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+t.title+'</span><span class="dur">'+t.dur+'</span><a class="dl" href="'+t.url+'" download title="Download '+t.title+'" onclick="event.stopPropagation()">&#8628;</a>';
+  li.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+t.title+'</span><span class="dur">'+t.dur+'</span><a class="dl" href="'+wu(t.wav)+'" download title="Download WAV - '+t.title+'" onclick="event.stopPropagation()">&#8628;</a>';
   li.addEventListener('click',function(){if(current!==i){loadTrack(i);if(playing)audio.play().catch(function(){})}else togglePlay()});
   trackListEl.appendChild(li)
 });
@@ -246,7 +248,7 @@ var dlEl=document.getElementById('dlSidebar');
 Object.keys(albums).forEach(function(a){
   var d=document.createElement('div');d.className='dl-album';
   d.innerHTML='<div class="dl-ttl">'+a+'</div>';
-  albums[a].forEach(function(t){d.innerHTML+='<a href="'+t.url+'" download>'+t.title+' ('+t.dur+')</a>'});
+  albums[a].forEach(function(t){d.innerHTML+='<a href="'+wu(t.wav)+'" download title="WAV">'+t.title+' <span style="color:#555">WAV</span></a>'});
   dlEl.appendChild(d)
 });
 loadTrack(0);
